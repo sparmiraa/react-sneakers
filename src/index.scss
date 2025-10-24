@@ -270,7 +270,7 @@ header {
   }
 
   &:hover {
-    background: lighten($color: #9dd558, $amount: 5%);
+    background: color.adjust(#9dd558, $lightness: 5%);
   }
   &:active {
     background: color.adjust(#9dd558, $lightness: -5%);
