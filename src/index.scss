@@ -275,7 +275,7 @@ header {
     background: lighten($color: #9dd558, $amount: 5%);
   }
   &:active {
-    background: darken($color: #9dd558, $amount: 5);
+    background: color.adjust(#9dd558, $lightness: -5%);
   }
 }
 
