@@ -1,4 +1,4 @@
-import Info from "./info";
+import Info from "./Info";
 import React from "react";
 import { AppContext } from "../App";
 import axios from "axios";
