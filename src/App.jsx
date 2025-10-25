@@ -21,6 +21,15 @@ export default function App() {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
+    if (cartOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [cartOpened]);
+  
+
+  React.useEffect(() => {
     async function fetchData() {
       const cartResponse = await axios.get(
         `${API_SNEAKERS}/cart`
