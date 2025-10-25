@@ -31,24 +31,30 @@ export default function App() {
 
   React.useEffect(() => {
     async function fetchData() {
-      const cartResponse = await axios.get(
-        `${API_SNEAKERS}/cart`
-      );
-      const favoriteResponse = await axios.get(
-        `${API_FAVORITE}/favorite`
-      );
-      const itemsResponse = await axios.get(
-        `${API_SNEAKERS}/items`
-      );
+      try {
+        const [cartResponse, favoriteResponse, itemsResponse] = await Promise.all([
+          axios.get(`${API_SNEAKERS}/cart`),
+          axios.get(`${API_FAVORITE}/favorite`),
+          axios.get(`${API_SNEAKERS}/items`),
+        ]);
+  
+        setCartItems(Array.isArray(cartResponse.data) ? cartResponse.data : []);
+        setFavorites(Array.isArray(favoriteResponse.data) ? favoriteResponse.data : []);
+        setItems(Array.isArray(itemsResponse.data) ? itemsResponse.data : []);
+        
+      } catch (error) {
 
-      setIsLoading(false);
-
-      setCartItems(cartResponse.data);
-      setFavorites(favoriteResponse.data);
-      setItems(itemsResponse.data);
+        setCartItems([]);
+        setFavorites([]);
+        setItems([]);
+      } finally {
+        setIsLoading(false);
+      }
     }
+  
     fetchData();
   }, []);
+  
 
   const addToCart = async (obj) => {
     try {
